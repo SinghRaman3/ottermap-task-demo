@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -8,12 +8,16 @@ import OSM from "ol/source/OSM";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { Feature } from "ol";
-import {   Point } from "ol/geom";
+import { Point } from "ol/geom";
 import Draw from "ol/interaction/Draw";
 import Style from "ol/style/Style";
 import { Fill, Stroke } from "ol/style";
 
-const MapComponent = ({ select }) => {
+interface SelectorProps {
+  select: String;
+}
+
+const MapComponent: React.FC<SelectorProps> = ({ select }) => {
   let mapRef = useRef(null);
 
   //Create new map instance

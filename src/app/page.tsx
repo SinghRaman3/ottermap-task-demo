@@ -6,6 +6,7 @@ import MapComponent from "../components/MapComponent";
 import Selector from "@/components/Selector";
 
 export default function Home() {
+  
   const [select, setSelect] = useState<String>("point");
   return (
     <main>
