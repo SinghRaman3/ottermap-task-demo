@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -18,17 +18,13 @@ interface SelectorProps {
 }
 
 const MapComponent: React.FC<SelectorProps> = ({ select }) => {
-  let mapRef = useRef(null);
-
-  //Create new map instance
-  var map = new Map();
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     //Create a map object 
     //Condition checks for if the mapRef is not null
-    if (mapRef.current) {
-      map = new Map({
-        target: mapRef.current,
+      const map = new Map({
+        target: mapRef.current === null ? undefined : mapRef.current,
         layers: [
           new TileLayer({
             source: new OSM(),
@@ -107,8 +103,7 @@ const MapComponent: React.FC<SelectorProps> = ({ select }) => {
 
       return () => {
         map.setTarget(undefined);
-      };
-    }
+      }; 
     //Dependency array contains select (state) variable 
   }, [select]);
 

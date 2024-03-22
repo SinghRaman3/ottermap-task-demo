@@ -23,5 +23,5 @@ This is a simple web application that uses OpenLayers library to render an inter
 - **OpenLayers:** A high-performance, feature-packed library for creating interactive maps.
 - **NextJS/TypeScript:** Standard web technologies for building the user interface and functionality.
 
-## File Structure
+
 
