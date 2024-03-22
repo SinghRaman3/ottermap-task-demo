@@ -8,19 +8,20 @@ import OSM from "ol/source/OSM";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { Feature } from "ol";
-import { Geometry, Point, Polygon } from "ol/geom";
-// import { fromLonLat } from "ol/proj";
-// import { features } from "process";
-// import { Coordinate } from "ol/coordinate";
+import {   Point } from "ol/geom";
 import Draw from "ol/interaction/Draw";
 import Style from "ol/style/Style";
 import { Fill, Stroke } from "ol/style";
 
 const MapComponent = ({ select }) => {
   let mapRef = useRef(null);
+
+  //Create new map instance
   var map = new Map();
 
   useEffect(() => {
+    //Create a map object 
+    //Condition checks for if the mapRef is not null
     if (mapRef.current) {
       map = new Map({
         target: mapRef.current,
@@ -41,9 +42,9 @@ const MapComponent = ({ select }) => {
         let lastLayer;
 
         //To remove the previously marked point
-        if(layerLength>1) { 
-            lastLayer = e.map.getLayers().getArray()[layerLength - 1];
-            e.map.removeLayer(lastLayer)
+        if (select === "point" && layerLength > 1) {
+          lastLayer = e.map.getLayers().getArray()[layerLength - 1];
+          e.map.removeLayer(lastLayer);
         }
 
         //For point markers we used vector layer and got the coordinates from onClick
@@ -73,10 +74,10 @@ const MapComponent = ({ select }) => {
         }),
       });
 
-    // fucntion that runs when drawend is reached
-    //   drawPolygonInteraction.on("drawend", (e) => {
-    //     console.log(e);
-    //   });
+      // fucntion that runs when drawend is reached
+      //   drawPolygonInteraction.on("drawend", (e) => {
+      //     console.log(e);
+      //   });
 
       //Line Interaction
       const drawLineInteraction = new Draw({
@@ -91,11 +92,12 @@ const MapComponent = ({ select }) => {
         }),
       });
 
-    // function that runs when drawend is reached
-    //   drawLineInteraction.on("drawend", (e) => {
-    //     console.log(e);
-    //   });
+      // function that runs when drawend is reached
+      //   drawLineInteraction.on("drawend", (e) => {
+      //     console.log(e);
+      //   });
 
+      //Adding map interactions
       if (select === "polygon") map.addInteraction(drawPolygonInteraction);
       else if (select === "line") map.addInteraction(drawLineInteraction);
 
@@ -103,6 +105,7 @@ const MapComponent = ({ select }) => {
         map.setTarget(undefined);
       };
     }
+    //Dependency array contains select (state) variable 
   }, [select]);
 
   return (
